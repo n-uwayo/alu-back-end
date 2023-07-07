@@ -1,19 +1,33 @@
 #!/usr/bin/python3
+"""
+    python script that exports data in the JSON format
+"""
 import sys
 import requests
 
 def fetch_todo_list_progress(employee_id):
+    """
+    Fetches and displays the TODO list progress of an employee.
+
+    Args:
+        employee_id (int): The ID of the employee.
+
+    Returns:
+        None
+    """
     base_url = 'https://jsonplaceholder.typicode.com'
     employee_url = f'{base_url}/users/{employee_id}'
     todos_url = f'{base_url}/todos?userId={employee_id}'
 
     try:
+        # Fetch employee data
         employee_response = requests.get(employee_url)
-        todos_response = requests.get(todos_url)
         employee_response.raise_for_status()
-        todos_response.raise_for_status()
-        
         employee_data = employee_response.json()
+
+        # Fetch TODO list for the employee
+        todos_response = requests.get(todos_url)
+        todos_response.raise_for_status()
         todos_data = todos_response.json()
 
         employee_name = employee_data['name']

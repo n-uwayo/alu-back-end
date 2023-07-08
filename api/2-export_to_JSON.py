@@ -12,9 +12,9 @@ if __name__ == "__main__":
 
     sessionRequest = requests.Session()
 
-    employeeId = argv[1]
-    idURL = 'https://jsonplaceholder.typicode.com/users/{}/todos'.format(employeeId)
-    nameURL = 'https://jsonplaceholder.typicode.com/users/{}'.format(employeeId)
+    epId = argv[1]
+    idURL = 'https://jsonplaceholder.typicode.com/users/{}/todos'.format(epId)
+    nameURL = 'https://jsonplaceholder.typicode.com/users/{}'.format(epId)
 
     employee = sessionRequest.get(idURL)
     employeeName = sessionRequest.get(nameURL)
@@ -32,8 +32,8 @@ if __name__ == "__main__":
                 "completed": all_Emp.get('completed'),
                 "username": usr,
             })
-    updateUser[employeeId] = totalTasks
+    updateUser[epId] = totalTasks
 
-    file_Json = employeeId + ".json"
+    file_Json = epId + ".json"
     with open(file_Json, 'w') as f:
         json.dump(updateUser, f)

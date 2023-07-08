@@ -1,8 +1,6 @@
 #!/usr/bin/python3
 """
-Script that, using this REST API, for a given employee ID, returns
-information about his/her TODO list progress
-and export data in the JSON format.
+    python script that exports data in the JSON format
 """
 
 import json
@@ -12,14 +10,14 @@ from sys import argv
 
 if __name__ == "__main__":
 
-    sessionReq = requests.Session()
+    sessionRequest = requests.Session()
 
-    idEmp = argv[1]
-    idURL = 'https://jsonplaceholder.typicode.com/users/{}/todos'.format(idEmp)
-    nameURL = 'https://jsonplaceholder.typicode.com/users/{}'.format(idEmp)
+    employeeId = argv[1]
+    idURL = 'https://jsonplaceholder.typicode.com/users/{}/todos'.format(employeeId)
+    nameURL = 'https://jsonplaceholder.typicode.com/users/{}'.format(employeeId)
 
-    employee = sessionReq.get(idURL)
-    employeeName = sessionReq.get(nameURL)
+    employee = sessionRequest.get(idURL)
+    employeeName = sessionRequest.get(nameURL)
 
     json_req = employee.json()
     usr = employeeName.json()['username']
@@ -34,8 +32,8 @@ if __name__ == "__main__":
                 "completed": all_Emp.get('completed'),
                 "username": usr,
             })
-    updateUser[idEmp] = totalTasks
+    updateUser[employeeId] = totalTasks
 
-    file_Json = idEmp + ".json"
+    file_Json = employeeId + ".json"
     with open(file_Json, 'w') as f:
         json.dump(updateUser, f)
